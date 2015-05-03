@@ -1,0 +1,48 @@
+from urllib.error import URLError, HTTPError
+# ...and from mechanize
+from ._opener import OpenerDirector, \
+     SeekableResponseOpener, \
+     build_opener, install_opener, urlopen
+from ._auth import \
+     HTTPPasswordMgr, \
+     HTTPPasswordMgrWithDefaultRealm, \
+     AbstractBasicAuthHandler, \
+     AbstractDigestAuthHandler, \
+     HTTPProxyPasswordMgr, \
+     ProxyHandler, \
+     ProxyBasicAuthHandler, \
+     ProxyDigestAuthHandler, \
+     HTTPBasicAuthHandler, \
+     HTTPDigestAuthHandler, \
+     HTTPSClientCertMgr
+from ._request import \
+     Request
+from ._http import \
+     RobotExclusionError
+from urllib.request import BaseHandler, UnknownHandler, FTPHandler, CacheFTPHandler, FileHandler
+# ...and from mechanize
+from ._http import \
+     HTTPHandler, \
+     HTTPDefaultErrorHandler, \
+     HTTPRedirectHandler, \
+     HTTPEquivProcessor, \
+     HTTPCookieProcessor, \
+     HTTPRefererProcessor, \
+     HTTPRefreshProcessor, \
+     HTTPErrorProcessor, \
+     HTTPRobotRulesProcessor
+from ._upgrade import \
+     HTTPRequestUpgradeProcessor, \
+     ResponseUpgradeProcessor
+from ._debug import \
+     HTTPResponseDebugProcessor, \
+     HTTPRedirectDebugProcessor
+from ._seek import \
+     SeekableProcessor
+# crap ATM
+## from _gzip import \
+##      HTTPGzipProcessor
+import http.client
+if hasattr(httplib, 'HTTPS'):
+    from ._http import HTTPSHandler
+del httplib
