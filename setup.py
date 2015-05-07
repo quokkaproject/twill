@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
 try:
     from setuptools import setup
 except ImportError:
@@ -9,10 +11,10 @@ except ImportError:
 #### twill info.
 
 setup(name = 'twill',
-      
+
       version = '1.8.0',
 #      download_url = 'http://darcs.idyll.org/~t/projects/twill-0.9.tar.gz',
-      
+
       description = 'twill Web browsing language',
       author = 'C. Titus Brown and Ben R. Taylor',
       author_email = 'titus@idyll.org',
@@ -23,10 +25,10 @@ setup(name = 'twill',
                   'twill.extensions',
                   'twill.extensions.match_parse'],
 
-      # allow both 
+      # allow both
       entry_points = dict(console_scripts=['twill-sh = twill.shell:main'],),
       scripts = ['twill-fork'],
-      
+
       maintainer = 'C. Titus Brown',
       maintainer_email = 'titus@idyll.org',
 

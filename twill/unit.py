@@ -3,7 +3,11 @@ Support functionality for using twill in unit tests.
 """
 
 import sys, os, time
-from io import StringIO
+
+if sys.version_info.major < 3:
+    import StringIO
+else:
+    from io import StringIO
 
 # package import
 from .parse import execute_file

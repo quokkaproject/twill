@@ -5,6 +5,7 @@ Implements TwillBrowser
 OUT=None
 
 # Python imports
+from __future__ import print_function
 import pickle
 import re
 import urllib.parse

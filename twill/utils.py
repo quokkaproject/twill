@@ -4,7 +4,7 @@ Various ugly utility functions for twill.
 Apart from various simple utility functions, twill's robust parsing
 code is implemented in the ConfigurableParsingFactory class.
 """
-
+from __future__ import print_function
 import os
 import base64
 

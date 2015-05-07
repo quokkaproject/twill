@@ -5,10 +5,14 @@ WSGI application.
 
 Use 'add_wsgi_intercept' and 'remove_wsgi_intercept' to control this behavior.
 """
+from __future__ import print_function
 import sys
 from http.client import HTTPConnection
 import urllib.request, urllib.parse, urllib.error
-from io import StringIO
+if sys.version_info.major < 3:
+    import StringIO
+else:
+    from io import StringIO
 import traceback
 
 debuglevel = 0

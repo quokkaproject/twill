@@ -2,7 +2,7 @@
 Implementation of all of the individual 'twill' commands available through
 twill-sh.
 """
-
+from __future__ import print_function
 import sys
 from lxml import html
 import collections

@@ -2,8 +2,14 @@
 Code parsing and evaluation for the twill mini-language.
 """
 
+from __future__ import print_function
 import sys
-from io import StringIO
+
+if sys.version_info.major == 2:
+    import StringIO
+elif sys.version_info.major == 3:
+    from io import StringIO
+
 
 from .errors import TwillAssertionError, TwillNameError
 from pyparsing import OneOrMore, Word, printables, quotedString, Optional, \
@@ -79,13 +85,13 @@ def process_args(args, globals_dict, locals_dict):
                 val = arg
 
 
-            print('*** VAL IS', val, 'FOR', arg)
-            
+            print('*** VAL IS {} FOR {}'.format(val, arg))
+
             if isinstance(val, str) or isinstance(val, str):
                 newargs.append(val)
             else:
                 newargs.extend(val)
-                
+
         # $variable substitution
         elif arg.startswith('$') and not arg.startswith('${'):
             try:
@@ -124,7 +130,7 @@ def execute_command(cmd, args, globals_dict, locals_dict, cmdinfo):
 
     # eval the codeobj in the appropriate dictionary.
     result = eval(codeobj, globals_dict, locals_dict)
-    
+
     # set __url__
     locals_dict['__url__'] = commands.browser.get_url()
 
@@ -142,7 +148,7 @@ def parse_command(line, globals_dict, locals_dict):
     if res:
         if _print_commands:
             print("twill: executing cmd '%s'" % (line.strip(),), file=commands.OUT)
-            
+
         args = process_args(res.arguments.asList(), globals_dict, locals_dict)
         return (res.command, args)
 
@@ -155,11 +161,11 @@ def execute_string(buf, **kw):
     Execute commands from a string buffer.
     """
     fp = StringIO(buf)
-    
+
     kw['source'] = ['<string buffer>']
     if 'no_reset' not in kw:
        kw['no_reset'] = True
-    
+
     _execute_script(fp, **kw)
 
 def execute_file(filename, **kw):
@@ -175,7 +181,7 @@ def execute_file(filename, **kw):
     kw['source'] = filename
 
     _execute_script(inp, **kw)
-    
+
 def _execute_script(inp, **kw):
     """
     Execute lines taken from a file-like iterator.
@@ -183,7 +189,7 @@ def _execute_script(inp, **kw):
     # initialize new local dictionary & get global + current local
     namespaces.new_local_dict()
     globals_dict, locals_dict = namespaces.get_twill_glocals()
-    
+
     locals_dict['__url__'] = commands.browser.get_url()
 
     # reset browser
@@ -203,7 +209,7 @@ def _execute_script(inp, **kw):
 
     # sourceinfo stuff
     sourceinfo = kw.get('source', "<input>")
-    
+
     try:
 
         for n, line in enumerate(inp):
@@ -256,7 +262,7 @@ def debug_print_commands(flag):
     """
     global _print_commands
     _print_commands = bool(flag)
-        
+
 
 variable_expression = re.compile("\${(.*?)}")
 
