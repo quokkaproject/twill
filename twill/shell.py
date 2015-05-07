@@ -5,6 +5,7 @@ This is an implementation of a command-line interpreter based on the
 'Cmd' class in the 'cmd' package of the default Python distribution.
 """
 
+from __future__ import print_function
 import cmd
 from twill import commands, parse, __version__
 from . import namespaces
@@ -20,7 +21,7 @@ def make_cmd_fn(cmd):
     function name.  (This is where the twill.commands functions actually
     get executed.)
     """
-    
+
     def do_cmd(rest_of_line, cmd=cmd):
         global_dict, local_dict = namespaces.get_twill_glocals()
 
@@ -30,7 +31,7 @@ def make_cmd_fn(cmd):
                 args = parse.arguments.parseString(rest_of_line)[0]
                 args = parse.process_args(args, global_dict,local_dict)
             except Exception as e:
-                print('\nINPUT ERROR: %s\n' % (str(e),))
+                print('\n INPUT ERROR: {} \n'.format(e))
                 return
 
         try:
@@ -55,7 +56,7 @@ def make_help_cmd(cmd, docstring):
         print('')
         print('=' * 15)
         print('')
-        
+
     return help_cmd
 
 ###
@@ -68,7 +69,7 @@ class Singleton(object):
         cls.__it__ = it = object.__new__(cls)
         it.init(*args, **kwds)
         return it
-    
+
     def init(self, *args, **kwds):
         pass
 
@@ -80,7 +81,7 @@ def add_command(cmd, docstring):
     x = get_command_shell()
     if x:
         x.add_command(cmd, docstring)
-        
+
 def get_command_shell():
     return getattr(TwillCommandLoop, '__it__', None)
 
@@ -115,11 +116,11 @@ class TwillCommandLoop(Singleton, cmd.Cmd):
         # handle initial URL argument
         if kw.get('initial_url'):
             commands.go(kw['initial_url'])
-            
+
         self._set_prompt()
 
         self.names = []
-        
+
         global_dict, local_dict = namespaces.get_twill_glocals()
 
         ### add all of the commands from twill.
@@ -202,7 +203,7 @@ class TwillCommandLoop(Singleton, cmd.Cmd):
     def postcmd(self, stop, line):
         "Run after each command; set prompt."
         self._set_prompt()
-        
+
         return stop
 
     def default(self, line):
@@ -238,7 +239,7 @@ class TwillCommandLoop(Singleton, cmd.Cmd):
         "Exit on CTRL-D"
         if readline:
             readline.write_history_file('.twill-history')
-            
+
         raise SystemExit()
 
     def help_help(self):
@@ -267,7 +268,7 @@ twillargs = []                          # contains sys.argv *after* last '--'
 interactive = False                     # 'True' if interacting with user
 def main():
     global twillargs, interactive
-    
+
     import sys
     from twill import TwillCommandLoop, execute_file, __version__
     from twill.utils import gather_filenames
