@@ -10,14 +10,14 @@ except ImportError:
 
 #### twill info.
 
-setup(name = 'twill',
+setup(name = 'quokka-twill',
 
       version = '1.8.0',
 #      download_url = 'http://darcs.idyll.org/~t/projects/twill-0.9.tar.gz',
 
-      description = 'twill Web browsing language',
-      author = 'C. Titus Brown and Ben R. Taylor',
-      author_email = 'titus@idyll.org',
+      description = 'fork of twill Web browsing language',
+      author = 'QuokkaProject',
+      author_email = 'rochacbruno+quokka@gmail.com',
       license='MIT',
 
       packages = ['twill', 'twill.other_packages',
